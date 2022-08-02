@@ -1,0 +1,214 @@
+schema: draft-07
+name: "azure-cosmosdb-coresql"
+description: "Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Microsoft's Core SQL API."
+ref: github.com/massdriver-cloud/azure-cosmosdb-coresql
+access: "private"
+type: "bundle"
+
+steps:
+  - path: src
+    provisioner: terraform
+
+params:
+  examples:
+  - __name: Development
+    database:
+      total_throughput_limit: 100000
+      serverless: true
+    backups:
+      backup_type: None
+  - __name: Production
+    database:
+      total_throughput_limit: -1
+      serverless: false
+    backups:
+      backup_type: Continuous
+  required:
+    - database
+    - geo_redundancy
+  properties:
+    database:
+      type: object
+      title: Database
+      required:
+        - consistency_level
+        - total_throughput_limit
+        - cidr
+      properties:
+        cidr:
+          title: Subnet CIDR
+          type: string
+          description: Specify a /28 CIDR range within your VNet to create subnet for the Cosmos DB. The subnet CIDR cannot be changed after creation.
+          $md.immutable: true
+          pattern: ^(?:10\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)(?:\.(?:[0-9]|[0-9]{2}|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){2}\/28$
+          message:
+            pattern: "Must be a /28 range from within the VNet CIDR"
+        consistency_level:
+          title: Consistency level
+          description: The consistency level to use for this CosmosDB Account.
+          type: string
+          default: Session
+          oneOf:
+            - title: Strong (highest consistency, highest latency, lower throughput)
+              const: Strong
+            - title: Bounded Staleness (consistency, latency, and throughput varies)
+              const: BoundedStaleness
+            - title: Session (strong consistency for client session)
+              const: Session
+            - title: Consistent Prefix (similar to eventual, but guarantees order)
+              const: ConsistentPrefix
+            - title: Eventual (lowest consistency, lowest latency, high throughput)
+              const: Eventual
+        max_interval_in_seconds:
+          title: Max interval in seconds
+          description: The amount of staleness tolerated (in seconds). This value is only usable for Bounded Staleness consistency. Minimum of 300, max of 86400.
+          type: integer
+          default: 300
+          minimum: 300
+          maximum: 86400
+        max_staleness_prefix:
+          title: Max staleness prefix
+          description: The number of stale requests tolerated. This value is only usable for Bounded Staleness consistency. Minimum of 100000, max of 2147483647.
+          type: integer
+          default: 100000
+          minimum: 100000
+          maximum: 2147483647
+        total_throughput_limit:
+          title: Total throughput limit
+          description: The total throughput limit imposed on this Cosmos DB account in RU/s (-1 means no limit).
+          type: integer
+          minimum: -1
+          maximum: 10000000000000000
+        serverless:
+          title: Serverless capacity mode. Cannot be changed, and does not support multiple regions.
+          $md.immutable: true
+          type: boolean
+          default: false
+    geo_redundancy:
+      title: Geo-Redundancy
+      type: object
+      properties:
+        multi_region_writes:
+          title: Enable multi-region writes. This setting is not supported with strong consistency or serverless mode.
+          type: boolean
+          default: false
+        automatic_failover:
+          title: Enable automatic failover
+          type: boolean
+          default: false
+        additional_regions:
+          title: Additional failover regions
+          type: array
+          default: []
+          items:
+            type: object
+            title: Failover region
+            description: Configuration of a failover region region
+            required:
+              - location
+              - failover_priority
+            properties:
+              location:
+                title: Location
+                description: The Azure region to host replicated data.
+                type: string
+                oneOf:
+                  - title: North Central US
+                    const: northcentralus
+                  - title: South Central US
+                    const: southcentralus
+                  - title: East US
+                    const: eastus
+                  - title: East US 2
+                    const: eastus2
+                  - title: West US
+                    const: westus
+                  - title: West US 3
+                    const: westus3
+              failover_priority:
+                title: Failover priority
+                description: The failover priority of the region. The lower the value, the higher the priority is. Minimum value is 2, maximum value is 100.
+                type: integer
+                minimum: 2
+                maximum: 100
+    backups:
+      title: Backup & Restore
+      description: Whether the Cosmos DB account is in backup & restore mode.
+      type: object
+      properties:
+        backup_type:
+          title: Backup type
+          description: The backup type to use for the Cosmos DB account. This cannot be changed after it is set.
+          $md.immutable: true
+          type: string
+          default: None
+          enum:
+            - None
+            - Continuous
+            - Periodic
+        interval:
+          title: Interval between backups
+          description: The interval between backups in minutes. Only required if backup type is 'Periodic'. Minimum of 60, maximum of 1440.
+          type: integer
+          minimum: 60
+          maximum: 1440
+        retention:
+          title: Retention period for backups
+          description: The number of hours to keep backups. Only required if backup type is 'Periodic'. Minimum of 8, maximum of 720.
+          type: integer
+          minimum: 8
+          maximum: 720
+        redundancy:
+          title: Backup storage redundancy
+          description: The backup storage redundancy to use for the Cosmos DB account. Only required if backup type is 'Periodic'.
+          type: string
+          oneOf:
+            - title: Geo-redundant backup storage
+              const: Geo
+            - title: Local-redundant backup storage
+              const: Local
+
+connections:
+  required:
+    - azure_service_principal
+    - vnet
+  properties:
+    azure_service_principal:
+      $ref: massdriver/azure-service-principal
+    vnet:
+      $ref: massdriver/azure-virtual-network
+
+artifacts:
+  required: []
+  properties: {}
+
+ui:
+  ui:order:
+    - database
+    - geo_redundancy
+    - backups
+    - "*"
+  database:
+    ui:order:
+      - cidr
+      - consistency_level
+      - max_interval_in_seconds
+      - max_staleness_prefix
+      - total_throughput_limit
+      - serverless
+      - "*"
+  geo_redundancy:
+    ui:order:
+      - multi_region_writes
+      - automatic_failover
+      - additional_regions
+    additional_regions:
+      ui:order:
+        - location
+        - failover_priority
+  backups:
+    ui:order:
+      - backup_type
+      - interval
+      - retention
+      - redundancy
