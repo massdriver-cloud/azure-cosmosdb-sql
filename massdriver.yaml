@@ -21,6 +21,8 @@ params:
     database:
       total_throughput_limit: -1
       serverless: false
+    geo_redundancy:
+      automatic_failover: true
     backups:
       backup_type: Continuous
   required:
@@ -133,7 +135,7 @@ params:
                 maximum: 100
     backups:
       title: Backups
-      description: Enable and configure backups for your database. Backup type cannot be changed after provisioning. 
+      description: Enable and configure backups for your database. Backup type cannot be changed after provisioning.
       type: object
       properties:
         backup_type:
