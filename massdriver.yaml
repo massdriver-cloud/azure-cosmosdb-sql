@@ -133,7 +133,7 @@ params:
                 maximum: 100
     backups:
       title: Backup & Restore
-      description: Whether the Cosmos DB account is in backup & restore mode.
+      description: Enable and configure backups for your database. Backup type cannot be changed after provisioning. 
       type: object
       properties:
         backup_type:
