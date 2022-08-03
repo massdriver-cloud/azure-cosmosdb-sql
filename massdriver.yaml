@@ -132,7 +132,7 @@ params:
                 minimum: 2
                 maximum: 100
     backups:
-      title: Backup & Restore
+      title: Backups
       description: Enable and configure backups for your database. Backup type cannot be changed after provisioning. 
       type: object
       properties:
