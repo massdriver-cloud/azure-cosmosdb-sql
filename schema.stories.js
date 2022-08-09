@@ -6,7 +6,7 @@ import guideMdxString from './operator.mdx'
 import Form from 'components/Form'
 import GuideRenderer from 'components/GuideRenderer'
 
-const type = 'azure-cosmosdb-coresql'
+const type = 'azure-cosmosdb-sql'
 
 /**
  * This is the scope object that is given to the MDX guide when parsing and
