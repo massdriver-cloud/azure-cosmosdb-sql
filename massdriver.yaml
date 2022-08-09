@@ -181,8 +181,11 @@ connections:
       $ref: massdriver/azure-virtual-network
 
 artifacts:
-  required: []
-  properties: {}
+  required:
+    - cosmosdb_sql_authentication
+  properties:
+    cosmosdb_sql_authentication:
+      $ref: massdriver/cosmosdb-sql-authentication
 
 ui:
   ui:order:
