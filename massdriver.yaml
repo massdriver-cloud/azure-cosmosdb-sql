@@ -1,7 +1,7 @@
 schema: draft-07
-name: "azure-cosmosdb-coresql"
-description: "Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Microsoft's Core SQL API."
-ref: github.com/massdriver-cloud/azure-cosmosdb-coresql
+name: "azure-cosmosdb-sql"
+description: "Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Azure CosmosDB's SQL API."
+ref: github.com/massdriver-cloud/azure-cosmosdb-sql
 access: "private"
 type: "bundle"
 
@@ -181,8 +181,11 @@ connections:
       $ref: massdriver/azure-virtual-network
 
 artifacts:
-  required: []
-  properties: {}
+  required:
+    - cosmosdb_sql_authentication
+  properties:
+    cosmosdb_sql_authentication:
+      $ref: massdriver/cosmosdb-sql-authentication
 
 ui:
   ui:order:

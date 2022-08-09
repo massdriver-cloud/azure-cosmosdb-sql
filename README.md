@@ -1,6 +1,6 @@
-# azure-cosmosdb-coresql
+# azure-cosmosdb-sql
 
-Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Microsoft's Core SQL API.
+Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Azure CosmosDB's SQL API.
 
 ## Development
 
