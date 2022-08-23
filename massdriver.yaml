@@ -5,10 +5,6 @@ ref: github.com/massdriver-cloud/azure-cosmosdb-sql
 access: "private"
 type: "bundle"
 
-steps:
-  - path: src
-    provisioner: terraform
-
 params:
   examples:
   - __name: Development
@@ -207,13 +203,16 @@ ui:
       - multi_region_writes
       - automatic_failover
       - additional_regions
+      - "*"
     additional_regions:
       ui:order:
         - location
         - failover_priority
+        - "*"
   backups:
     ui:order:
       - backup_type
       - interval
       - retention
       - redundancy
+      - "*"
