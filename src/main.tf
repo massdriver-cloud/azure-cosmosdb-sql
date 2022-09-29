@@ -12,8 +12,7 @@ locals {
 resource "azurerm_resource_group" "main" {
   name     = var.md_metadata.name_prefix
   location = var.vnet.specs.azure.region
-
-  tags = var.md_metadata.default_tags
+  tags     = var.md_metadata.default_tags
 }
 
 resource "azurerm_cosmosdb_account" "main" {
@@ -22,16 +21,13 @@ resource "azurerm_cosmosdb_account" "main" {
   resource_group_name                = azurerm_resource_group.main.name
   offer_type                         = "Standard"
   kind                               = "GlobalDocumentDB"
+  enable_automatic_failover          = var.geo_redundancy.automatic_failover
+  enable_multiple_write_locations    = var.geo_redundancy.multi_region_writes
   is_virtual_network_filter_enabled  = true
   public_network_access_enabled      = false
   access_key_metadata_writes_enabled = false
-  key_vault_key_id                   = azurerm_key_vault_key.main.resource_versionless_id
+  tags                               = var.md_metadata.default_tags
 
-  enable_automatic_failover       = var.geo_redundancy.automatic_failover
-  enable_multiple_write_locations = var.geo_redundancy.multi_region_writes
-
-  # If we wanted to use RBAC instead of access policies for CMK, we would need to set up a two-step deployment for:
-  # default_identity_type = "SystemAssignedIdentity"
   identity {
     type = "SystemAssigned"
   }
@@ -125,6 +121,4 @@ resource "azurerm_cosmosdb_account" "main" {
       storage_redundancy  = var.backups.redundancy
     }
   }
-
-  tags = var.md_metadata.default_tags
 }
