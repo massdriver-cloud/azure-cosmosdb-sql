@@ -53,7 +53,7 @@ module "normalized_ru_consumption_metric_alert" {
   metric_name      = "NormalizedRUConsumption"
   metric_namespace = "Microsoft.documentdb/databaseaccounts"
   aggregation      = local.alarms.normalized_ru_consumption_metric_alert.aggregation
-  threshold        = local.alarms.normalized_ru_consumption_metric_alert.threshold_consumption
+  threshold        = local.alarms.normalized_ru_consumption_metric_alert.threshold
 }
 
 module "server_latency_metric_alert" {
@@ -78,5 +78,5 @@ module "server_latency_metric_alert" {
   metric_name      = "ServerSideLatency"
   metric_namespace = "Microsoft.documentdb/databaseaccounts"
   aggregation      = local.alarms.server_latency_metric_alert.aggregation
-  threshold        = local.alarms.server_latency_metric_alert.threshold_latency
+  threshold        = local.alarms.server_latency_metric_alert.threshold
 }
