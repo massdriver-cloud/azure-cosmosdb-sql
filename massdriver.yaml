@@ -2,8 +2,8 @@ schema: draft-07
 name: "azure-cosmosdb-sql"
 description: "Azure Cosmos DB SQL is a fully managed NoSQL database for modern app development using Azure CosmosDB's SQL API."
 source_url: github.com/massdriver-cloud/azure-cosmosdb-sql
-access: "private"
-type: "bundle"
+access: public
+type: infrastructure
 
 MonitorAlarmMetric: &monitor_alarm_metric
   required:
