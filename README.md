@@ -29,23 +29,6 @@ Bundles are the basic building blocks of infrastructure, applications, and archi
 
 ## Bundle
 
-
-<!-- COMPLIANCE:START -->
-
-Security and compliance scanning of our bundles is performed using [Bridgecrew](https://www.bridgecrew.cloud/). Massdriver also offers security and compliance scanning of operational infrastructure configured and deployed using the platform.
-
-| Benchmark | Description |
-|--------|---------------|
-| [![Infrastructure Security](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=INFRASTRUCTURE+SECURITY) | Infrastructure Security Compliance |
-| [![CIS AZURE](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=CIS+AZURE+V1.1) | Center for Internet Security, AZURE Compliance |
-| [![PCI-DSS](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/pci)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=PCI-DSS+V3.2) | Payment Card Industry Data Security Standards Compliance |
-| [![NIST-800-53](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/nist)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=NIST-800-53) | National Institute of Standards and Technology Compliance |
-| [![ISO27001](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/iso)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=ISO27001) | Information Security Management System, ISO/IEC 27001 Compliance |
-| [![SOC2](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/soc2)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=SOC2)| Service Organization Control 2 Compliance |
-| [![HIPAA](https://www.bridgecrew.cloud/badges/github/massdriver-cloud/azure-cosmosdb-sql/hipaa)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=massdriver-cloud%2Fazure-cosmosdb-sql&benchmark=HIPAA) | Health Insurance Portability and Accountability Compliance |
-
-<!-- COMPLIANCE:END -->
-
 ### Params
 
 Form input parameters for configuring a bundle for deployment.
