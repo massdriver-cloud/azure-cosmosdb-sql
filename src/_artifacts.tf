@@ -11,9 +11,8 @@ locals {
 }
 
 resource "massdriver_artifact" "authentication" {
-  field                = "cosmosdb_sql_authentication"
-  provider_resource_id = azurerm_cosmosdb_account.main.id
-  name                 = "CosmosDB SQL Server ${var.md_metadata.name_prefix} (${azurerm_cosmosdb_account.main.id})"
+  field    = "cosmosdb_sql_authentication"
+  name     = "CosmosDB SQL Server ${var.md_metadata.name_prefix} (${azurerm_cosmosdb_account.main.id})"
   artifact = jsonencode(
     {
       data = {
